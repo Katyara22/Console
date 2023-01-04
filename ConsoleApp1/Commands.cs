@@ -4,56 +4,95 @@ namespace Commands
 {
     internal class Command
     {
+	    public string disc = "C"; //C                      
+	    public string userName = "CmdUser"; //Lügen              
+	    public string userLogin = "user"; //Lügen             
+	    public string userpassword = "user"; // Strong@@      
+	    
         public byte _windowsVersion = 10;
+        
         public ushort maxPlayer = 255;
         
-        public bool Online = true;
-
+        public bool ServerOnline = true;
+        public bool CmdOnline = false;
+        
         public void WindowsVersion()
         {
-			var MainFaile = new ConsoleApp1.Program();
-
-			Console.WriteLine($"Mincrosoft Windows [Version {_windowsVersion}]\n" +
-	                          $"{MainFaile.disc} Mincrosoft Copration. All rights reserved");
+	        Console.WriteLine($"Mincrosoft Windows [Version {_windowsVersion}]\n" +
+	                          $"{disc} Mincrosoft Copration. All rights reserved " + 
+	                          "check all commands through\nChek.Commands and in Server.Commands");
 	        Console.WriteLine();
         }
 
-		public void CMDCommands()
+        public void CmdCommands()
         {
-			var MincraftServer = new Server.MincraftServer();
-            var MainFaile = new ConsoleApp1.Program(); 
-
-			Console.Write($"{MainFaile.disc}:/Users/{MainFaile.userName}> ");
+	        Console.Write($"{disc}:/Users/{userName}> ");
             string Command = Console.ReadLine();
             
             switch (Command)
             {
 	            case "Profil":
+		            Console.WriteLine();
 		            Console.Write("My login ");
 		            Console.ForegroundColor = ConsoleColor.Cyan;
-		            Console.WriteLine($"{MainFaile.userLogin}");
+		            Console.WriteLine($"{userLogin}");
 		            Console.ResetColor();
 		            
 		            Console.Write("My password ");
 		            Console.ForegroundColor = ConsoleColor.Cyan;
-		            Console.WriteLine($"{MainFaile.userpassword}");
+		            Console.WriteLine($"{userpassword}");
 		            Console.ResetColor();
 		            
 		            Console.Write("My nickname ");
 		            Console.ForegroundColor = ConsoleColor.Cyan;
-		            Console.WriteLine($"{MainFaile.userName}");
+		            Console.WriteLine($"{userName}");
 		            Console.ResetColor();
+		            Console.WriteLine();
 
-		            CMDCommands();
+		            CmdCommands();
 		            break;
 	            
-	            case "ChekCommands":
+	            case "Chek.Commands":
+		            Console.WriteLine();
 		            Console.ForegroundColor = ConsoleColor.Blue;
 		            Console.WriteLine("Commands");
 		            Console.ResetColor();
 		            Console.WriteLine("Profil\nChekCommands\nServer");
+		            Console.WriteLine();
 		            
-		            CMDCommands();
+		            CmdCommands();
+		            break;
+	            
+	            case "Switch.Disc":
+		            break;
+	            
+	            case "Color":
+		            Console.Write("write the name of the color Red/Yellow> ");
+		            
+		            String color = Console.ReadLine();
+
+		            switch (color)
+		            {
+			            case "Red":
+				            Console.ForegroundColor = ConsoleColor.Red;
+
+				            CmdCommands();
+				            break;
+			            
+			            case "Yellow":
+				            Console.ForegroundColor = ConsoleColor.Yellow;
+
+				            CmdCommands();
+				            break;
+			            
+			            default:
+				            Console.WriteLine($"{Command} is not reconized as an internal or external command,\n" +
+				                              $"operable program or batch file.");
+        
+				            CmdCommands();
+				            break;
+		            }
+		            
 		            break;
 	            
 	            case "Server":
@@ -64,37 +103,42 @@ namespace Commands
 		            Console.WriteLine($"{Command} is not reconized as an internal or external command,\n" +
 		                              $"operable program or batch file.");
         
-		            CMDCommands();
+		            CmdCommands();
 		            break;
             }
         }
 
-		public void ServerCommands()
+        public void ServerCommands()
 		{
 			var MincraftServer = new Server.MincraftServer();
-			var MainFaile = new ConsoleApp1.Program(); 
+			// var MainFaile = new ConsoleApp1.Program(); 
 			
-			Console.Write($"{MainFaile.disc}:/Server/Users/{MainFaile.userName}> ");
+			Console.Write($"{disc}:/Server/Users/{userName}> ");
             string input = Console.ReadLine();
             
             switch (input)
             {
 	            case "Server.Commands":
 		            Console.ForegroundColor = ConsoleColor.Blue;
+		            Console.WriteLine();
 		            Console.WriteLine("Commands");
 		            Console.ResetColor();
 		            Console.WriteLine("Server.Commands\nServer.Create\nServer.Log\n" 
 		                              + "Server.Connect\nServer.Status\nServer.Switch.Status\n" 
 		                              + "Server.Switch.Max.Player\nServer.Online");
+		            Console.WriteLine();
 
 		            ServerCommands();
 		            break;
-	            
+
 	            case "Server.Create":
                     MincraftServer.CreateServer();
+                    
+                    ServerCommands();
                     break;
 	            
 	            case "Server.Log":
+		            Console.WriteLine();
 		            Console.Write("Server name ");
 		            Console.ForegroundColor = ConsoleColor.Blue;
 		            Console.WriteLine($"{MincraftServer.nameServer}");
@@ -102,7 +146,7 @@ namespace Commands
 		            
 		            Console.Write("Serever online ");
 		            Console.ForegroundColor = ConsoleColor.Blue;
-		            Console.WriteLine($"{Online}");
+		            Console.WriteLine($"{CmdOnline}");
 		            Console.ResetColor();
 		            
 		            Console.Write("Serever max player ");
@@ -113,13 +157,14 @@ namespace Commands
 		            Console.Write("Serever player online ");
 		            Console.ForegroundColor = ConsoleColor.Green;
 		            Console.WriteLine($"{MincraftServer.playerOnline}");
+		            Console.WriteLine();
 		            Console.ResetColor();
 
 		            ServerCommands();
 		            break;
                 
                 case "Server.Connect":
-                    Console.Write("please enter a player name ");
+                    Console.Write("please enter a player name> ");
                     
                     string namePleyrs = Console.ReadLine();
                     
@@ -129,9 +174,11 @@ namespace Commands
                     break;
     
                 case "Server.Status":
+	                Console.WriteLine();
                     Console.Write("Server status ");
                     Console.ForegroundColor = ConsoleColor.Cyan;
-                    Console.WriteLine($"{Online}");
+                    Console.WriteLine($"{CmdOnline}");
+                    Console.WriteLine();
                     Console.ResetColor();
     
                     MincraftServer.Server();
@@ -140,15 +187,16 @@ namespace Commands
                     break;
                 
                 case "Server.Switch.Status":
-                    Console.Write("Server status true of false");
+                    Console.Write("Server status true of false ");
                     
                     var swichServerStatus = Convert.ToBoolean(Console.ReadLine());
                     
                     Console.Write("Server status ");
-                    Console.ForegroundColor = ConsoleColor.Cyan;
-                    Console.WriteLine($"{Online}");
+                    Console.ForegroundColor = ConsoleColor.DarkCyan;
+                    Console.WriteLine($"{CmdOnline}");
+                    Console.ResetColor();
                     
-                    Online = swichServerStatus;
+                    CmdOnline = swichServerStatus;
                     
                     ServerCommands();
                     break;
@@ -158,11 +206,16 @@ namespace Commands
                     
                     var swichServerMaxPlayer = Convert.ToBoolean(Console.ReadLine());
                     
-                    Online = swichServerMaxPlayer;
+                    CmdOnline = swichServerMaxPlayer;
                     break;
 
 	            case "Server.Online":
-                    Console.WriteLine($"Server online {MincraftServer.playerOnline}: ");
+		            Console.WriteLine();
+                    Console.Write("Server online: ");
+		            Console.ForegroundColor = ConsoleColor.DarkBlue;
+		            Console.WriteLine($"{ServerOnline}");
+		            Console.ResetColor();
+                    Console.WriteLine();
                     
                     ServerCommands();
                     break;

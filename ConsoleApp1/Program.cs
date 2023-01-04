@@ -4,26 +4,20 @@ namespace ConsoleApp1
 {
 	internal class Program
 	{
-		public char disc = 'C';
-		
-		public string userName = "Lügen"; //Lügen
-		public string userLogin = "Lügen"; //Lügen
-		public string userpassword = "Strong@@"; // Strong@@
-
 		private static void Main(string[] args)
 		{
 			var commands = new Commands.Command();
-
+			var program = new Program();
+			
 			commands.WindowsVersion();
-			//SingIn();
-			//LogIn();
-			commands.CMDCommands();
+			commands.CmdCommands();
+			// program.SingIn();
+			// program.LogIn();
 		}
 
 		public void LogIn()
 		{
 			var commands = new Commands.Command();
-			commands.CMDCommands();
 
 			Console.WriteLine("Write your login");
 			string login = Console.ReadLine();
@@ -31,33 +25,42 @@ namespace ConsoleApp1
 			Console.WriteLine("Write your password");
 			string password = Console.ReadLine();
 
-			if (login == userLogin)
-				if (password == userpassword)
+			if (login == commands.userLogin)
+			{
+				if (password == commands.userpassword)
 				{
-					commands.CMDCommands();
+					commands.CmdCommands();
 				}
 				else
+				{
 					Console.WriteLine("Error");
+				}
+			}
 			else
+			{
 				Console.WriteLine("Error");
+			}
+			
+			commands.CmdCommands();  
 		}
 
-		private void SingIn()
+		public void SingIn()
 		{
 			var commands = new Commands.Command();
 
-			Console.Write("Create your own login ");
-			userLogin = Console.ReadLine();
+			Console.Write("Create your own login> ");
+			commands.userLogin = Console.ReadLine();
 
-			Console.Write("Create your own password ");
-			userpassword = Console.ReadLine();
+			Console.Write("Create your own password> ");
+			commands.userpassword = Console.ReadLine();
 
-			Console.Write("Create your own nickname ");
-			userName = Console.ReadLine();
-
-			commands.CMDCommands();
+			Console.Write("Create your own nickname> ");
+			commands.userName = Console.ReadLine();
 			
-			
+			Console.Write("Create your own disc> ");
+			commands.disc = Console.ReadLine();
+
+			commands.CmdCommands();
 		}
 	}
 }
